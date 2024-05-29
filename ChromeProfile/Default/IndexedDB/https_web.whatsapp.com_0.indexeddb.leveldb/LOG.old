@@ -1,0 +1,27 @@
+2024/05/30-00:45:31.093 35ac Reusing MANIFEST C:\Users\Utilisateur\Desktop\Software_testing_environment\WhatsappAuto\ChromeProfile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/05/30-00:45:31.094 35ac Recovering log #49
+2024/05/30-00:45:31.114 35ac Reusing old log C:\Users\Utilisateur\Desktop\Software_testing_environment\WhatsappAuto\ChromeProfile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000049.log 
+2024/05/30-00:45:42.162 33e4 Manual compaction at level-0 from '\x00\x16\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x17\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/05/30-00:45:42.166 35ac Level-0 table #55: started
+2024/05/30-00:45:42.180 35ac Level-0 table #55: 253232 bytes OK
+2024/05/30-00:45:42.182 35ac Delete type=0 #49
+2024/05/30-00:45:42.183 35ac Manual compaction at level-0 from '\x00\x17\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x18\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/05/30-00:45:44.575 2e70 Compacting 1@1 + 2@2 files
+2024/05/30-00:45:44.708 2e70 Generated table #56@1: 26350 keys, 2193699 bytes
+2024/05/30-00:45:44.774 2e70 Generated table #57@1: 25491 keys, 833286 bytes
+2024/05/30-00:45:44.774 2e70 Compacted 1@1 + 2@2 files => 3026985 bytes
+2024/05/30-00:45:44.775 2e70 compacted to: files[ 0 0 2 0 0 0 0 ]
+2024/05/30-00:45:44.776 2e70 Delete type=2 #51
+2024/05/30-00:45:44.777 2e70 Delete type=2 #52
+2024/05/30-00:45:44.777 2e70 Delete type=2 #55
+2024/05/30-00:46:09.015 33e4 Level-0 table #59: started
+2024/05/30-00:46:09.095 33e4 Level-0 table #59: 1105119 bytes OK
+2024/05/30-00:46:09.097 33e4 Delete type=0 #54
+2024/05/30-00:46:09.105 33e4 Compacting 1@1 + 2@2 files
+2024/05/30-00:46:09.250 33e4 Generated table #60@1: 27167 keys, 2192892 bytes
+2024/05/30-00:46:09.343 33e4 Generated table #61@1: 41352 keys, 1337851 bytes
+2024/05/30-00:46:09.343 33e4 Compacted 1@1 + 2@2 files => 3530743 bytes
+2024/05/30-00:46:09.344 33e4 compacted to: files[ 0 0 2 0 0 0 0 ]
+2024/05/30-00:46:09.345 33e4 Delete type=2 #56
+2024/05/30-00:46:09.345 33e4 Delete type=2 #57
+2024/05/30-00:46:09.346 33e4 Delete type=2 #59

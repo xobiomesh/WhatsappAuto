@@ -1,5 +1,5 @@
+import time
 import logging
-import pickle
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,75 +11,68 @@ from selenium.webdriver.support import expected_conditions as EC
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def load_cookies(driver, path):
-    with open(path, 'rb') as file:
-        cookies = pickle.load(file)
-        for cookie in cookies:
-            if 'expiry' in cookie:
-                del cookie['expiry']
-            driver.add_cookie(cookie)
-    logger.info(f"Cookies loaded: {cookies}")
-
 def main():
-    # Path to your WebDriver, assuming it's in the current directory
-    service = Service('./chromedriver-linux64/chromedriver')
-    driver = webdriver.Chrome(service=service)
-
+    chromedriver_path = 'C:/Users/Utilisateur/Desktop/Software_testing_environment/WhatsappAuto/chromedriver-win64/chromedriver.exe'
+    service = Service(chromedriver_path)
+    
+    chrome_binary_path = "C:/Program Files/Google/Chrome Beta/Application/chrome.exe"
+    
+    options = webdriver.ChromeOptions()
+    options.binary_location = chrome_binary_path
+    options.add_argument('--start-maximized')
+    options.add_argument('disable-infobars')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--remote-debugging-port=9222')
+    # Specify the user data directory
+    options.add_argument('user-data-dir=C:/Users/Utilisateur/Desktop/Software_testing_environment/WhatsappAuto/ChromeProfile')
+    
+    driver = webdriver.Chrome(service=service, options=options)
+    
     try:
-        # Open WhatsApp Web
         driver.get('https://web.whatsapp.com')
+        
+        WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, '//div[@data-tab="3"]'))
+        )
+        logger.info("Logged in successfully using the profile!")
 
-        # Load cookies from a file
-        load_cookies(driver, 'whatsapp_cookies.pkl')
-
-        # Refresh the page to apply cookies
-        driver.refresh()
-
-        # Wait for the page to load and check if we are logged in
-        try:
-            WebDriverWait(driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, '//div[@data-tab="3"]'))
-            )
-            logger.info("Logged in successfully using cookies!")
-        except:
-            logger.error("Failed to log in using cookies. Please check if the cookies are correct.")
-            return
-
-        # Prompt the user for recipient's name and message
         recipient_name = input("Enter the recipient's name: ")
         message = input("Enter the message: ")
 
-        # Wait for the search box to be present
-        logger.info("Waiting for the search box to be present...")
-        search_box = WebDriverWait(driver, 20).until(
+        search_box = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.XPATH, '//div[@contenteditable="true"][@data-tab="3"]'))
         )
         search_box.send_keys(recipient_name)
         search_box.send_keys(Keys.ENTER)
 
-        # Wait for the chat to load
-        logger.info("Waiting for the chat to load...")
-        chat_loaded = WebDriverWait(driver, 20).until(
+        chat_loaded = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.XPATH, f'//span[@title="{recipient_name}"]'))
         )
         chat_loaded.click()
-
-        # Wait for the message box to be present
-        logger.info("Waiting for the message box to be present...")
-        message_box = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, '//div[@contenteditable="true"][@data-tab="1"]'))
+        time.sleep(2)
+        message_box = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'))
         )
         message_box.send_keys(message)
-        message_box.send_keys(Keys.ENTER)
+        time.sleep(2)
+        send_button = WebDriverWait(driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[2]/button'))
+        )
+        time.sleep(2)
+        send_button.click()
 
         logger.info("Message sent successfully!")
 
     except Exception as e:
-        logger.error(f"An error occurred: {e}")
+        logger.error(f"An error occurred: {e}", exc_info=True)
         raise
 
     finally:
-        # Close the browser when done
+        
+        print("Closing the browser...")
+        time.sleep(3)
         driver.quit()
 
 if __name__ == "__main__":
